@@ -1,0 +1,8 @@
+1000
+john
+smith
+3.50
+2000
+mary
+doe
+4.00
