@@ -85,30 +85,34 @@ void str_free(char* s) {
 }
 
 int main() {
-    // Test str_length
-    const char *original = "Hello";
-    printf("Length of '%s' is %d\n", original, str_length(original));
-
+    printf("=== Custom String Library Test ===\n\n");
+    
     // Test str_copy
-    char *copy = str_copy(original);
-    printf("Copy of '%s' is '%s'\n", original, copy);
-
+    const char* original = "Hello, world!";
+    char* copy = str_copy(original);
+    printf("Original: %s\nCopy: %s\n\n", original, copy);
+    
     // Test str_concat
-    const char *add_on = " World!";
-    char *combined = str_concat(original, add_on);
-    printf("Concatenation of '%s' and '%s' is '%s'\n", original, add_on, combined);
-
+    const char* part1 = "Dynamic ";
+    const char* part2 = "Memory!";
+    char* combined = str_concat(part1, part2);
+    printf("Concatenation:\n\"%s\" + \"%s\" = \"%s\"\n\n", part1, part2,
+    combined);
+    
+    // Test str_length
+    int len = str_length(original);
+    printf("Length of \"%s\" = %d\n\n", original, len);
+    
     // Test str_compare
-    const char *a = "apple";
-    const char *b = "banana";
-    const char *c = "apple";
-    printf("Compare '%s' with '%s': %d\n", a, b, str_compare(a, b)); // should be negative
-    printf("Compare '%s' with '%s': %d\n", a, c, str_compare(a, c)); // should be 0
-    printf("Compare '%s' with '%s': %d\n", b, a, str_compare(b, a)); // should be positive
-
+    const char* cmp1 = "apple";
+    const char* cmp2 = "banana";
+    int cmp_result = str_compare(cmp1, cmp2);
+    printf("Compare \"%s\" vs \"%s\" = %d\n\n", cmp1, cmp2, cmp_result);
+    
     // Free allocated memory
     str_free(copy);
     str_free(combined);
-
+    printf("All tests completed. If no memory leaks occurred, you're good!\n");
+    
     return 0;
 }
