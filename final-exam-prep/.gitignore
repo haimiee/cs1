@@ -8,10 +8,13 @@
 *.a        # Static libraries
 *.so       # Shared libraries
 
-# Compiled programs (if your compiled file is named `insertlinkedlist`, etc.)
+# Compiled programs
 insertlinkedlist
 smartstring
 swapcasestring
+removeevenqueues
+stacks
+prefixpostfixstacks
 
 # Debugging or temporary files
 *.log
