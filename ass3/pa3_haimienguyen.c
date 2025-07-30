@@ -1,6 +1,6 @@
-#include <stdio.h>    // for printf, etc.
-#include <stdlib.h>   // for malloc, free
-#include <string.h>   // for strcpy, strcmp, strlen, etc.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define MAX_NAME_LEN 100
 
@@ -29,19 +29,13 @@ void insert_at_head(Hub** head, const char* name, int distance, int hour) {
         return;
     }
     
+    // Save new hub's name, distance, and hour
     strcpy(newHub->name, name);
     newHub->distance = distance;
     newHub->hour = hour;
 
     newHub->next = *head; // Link new node to current head
     *head = newHub; // Update head to point to new node
-    // Fill in the data:
-        // Copy the name string
-        // Set the distance    
-        // Set the hour
-    // Link the new node to the current head
-    // Update the head to point to the new node
-
 }
 
 // Recursive function to add a new hub at the end
@@ -51,6 +45,7 @@ void insert_at_tail(Hub** head, const char* name, int distance, int hour) {
         Hub* newHub = malloc(sizeof(Hub));
         if (!newHub) return;
 
+        // Save new hub's name, distance, and hour
         strcpy(newHub->name, name);
         newHub->distance = distance;
         newHub->hour = hour;
@@ -73,7 +68,7 @@ void print_chain(Hub* head) {
 
     Hub *temp = head;
     while (temp != NULL) {
-        printf("%s, %d, %dh\n", temp->name, temp->distance, temp->hour);
+        printf("%s - %d km, %dh\n", temp->name, temp->distance, temp->hour);
         temp = temp->next;
     }
 }
@@ -101,7 +96,8 @@ void print_chain_reverse(Hub* head) {
         return;
 
     print_chain_reverse(head->next);  // Recurse first
-    printf("%s, %d, %dh\n", head->name, head->distance, head->hour);  // Then print after so it prints when going back up call stack
+    printf("%s - %d km, %dh\n", head->name, head->distance, head->hour);
+  // Then print after so it prints when going back up call stack
 }
 
 // Function to find max hours spent between two consecutive hubs in the chain and print in special format
@@ -136,13 +132,15 @@ void display_bottleneck(Hub* head) {
     printf("Bottleneck: %s → %s, Time spent: %d hours\n", maxOrigin->name, maxDest->name, maxGap);
 }
 
+// Function to search matching string in linked list's names
 Hub search_hub(Hub* head, const char* keyword) {
+    // Temp variable to store the full name
     Hub* temp = head;
     while (temp != NULL) {
-        if (strstr(temp->name, keyword) != NULL) {
+        if (strstr(temp->name, keyword) != NULL) { // Use string library's strstr func to check for matching
             return *temp;  // Return a copy of the matching hub
         }
-        temp = temp->next;
+        temp = temp->next; // Traverse list if no match
     }
 
     // If no match found, return a dummy hub
@@ -153,14 +151,23 @@ Hub search_hub(Hub* head, const char* keyword) {
     notFound.next = NULL;
 
     return notFound;
+    // Return a copy so no need to free allocated memory
 }
 
+// Function to search matching string then remove that node
 void remove_first_match(Hub** head, const char* keyword) {
-    if (head == NULL || *head == NULL) return;
+    // Check if linked list is empty
+    if (*head == NULL) {
+        printf("List is empty!");
+        return;
+    }
 
+    // Variables to save the node to delete later and its previous node
     Hub* curr = *head;
     Hub* prev = NULL;
 
+    // While loop to look for matching keyword using strstr 
+    // then update previous pointer to current node's next pointer
     while (curr != NULL) {
         if (strstr(curr->name, keyword)) {
             // Match found
@@ -170,7 +177,7 @@ void remove_first_match(Hub** head, const char* keyword) {
             } else {
                 prev->next = curr->next;
             }
-            free(curr);
+            free(curr); // Free the memory to the match's node
             return;
         }
         prev = curr;
@@ -178,6 +185,7 @@ void remove_first_match(Hub** head, const char* keyword) {
     }
 }
 
+// Frees all nodes in the linked list to prevent memory leaks
 void deleteList(Hub *head) {
     Hub *temp;
     while (head != NULL) {
@@ -195,6 +203,7 @@ int main() {
     insert_at_head(&chain, "Orlando", 0, 9);
     insert_at_tail(&chain, "Atlanta", 400, 14);
     insert_at_tail(&chain, "Charlotte", 350, 17);
+    
     printf("Delivery chain:\n");
     print_chain(chain);
     printf("\n");

@@ -22,7 +22,7 @@ void str_free(char* s);
 // Frees dynamically allocated memory created by your custom string functions.
 
 // Function to return string length using pointer arithmetic
-int str_length(const char* s) {
+int str_length(const char* s) { // s = "Hello\0"
     const char *start = s; // Mark start of string
     while (*s != '\0') {
         s++;  // Walk the memory until null terminator '\0'
