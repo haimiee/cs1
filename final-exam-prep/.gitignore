@@ -1,0 +1,21 @@
+# macOS system file
+.DS_Store
+
+# C build artifacts
+*.o        # Object files
+*.out      # Executables (common name)
+*.exe      # Windows executables if cross-compiling
+*.a        # Static libraries
+*.so       # Shared libraries
+
+# Compiled programs
+insertlinkedlist
+smartstring
+swapcasestring
+removeevenqueues
+stacks
+prefixpostfixstacks
+
+# Debugging or temporary files
+*.log
+*.tmp
