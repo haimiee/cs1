@@ -15,24 +15,29 @@ void push(Stack* stack, int value) {
     printf("Attempting to add %d\n", value);
 
     Node* new_node = malloc(sizeof(Node));         // 1. Allocate memory for new node
-    new_node->data = value;                        // 2. Assign value to it
-    new_node->next = stack->top;                   // 3. Link to the old top
-    stack->top = new_node;                         // 4. Update stack's top to the new node
+    if (!new_node) {                               // 2. Return if malloc fails
+        printf("Malloc failed for new node.\n");
+        return;
+    }
+    new_node->data = value;                        // 3. Assign value to it
+    new_node->next = stack->top;                   // 4. Link to the old top
+    stack->top = new_node;                         // 5. Update stack's top to the new node
 
     printf("%d is now the top!\n", new_node->data);
 }
 
+// Function to remove the top value from the stack
 void pop(Stack* stack) {
     if (stack->top == NULL) {
         printf("Stack is already empty!\n");
         return;
     }
 
-    Node* temp = stack->top;       // Save the current top
+    Node* temp = stack->top;           // 1. Save the current top node
     printf("Popping: %d\n", temp->data);
-    stack->top = stack->top->next; // Move top to the next node
-    free(temp);                    // Free the old top node
-}
+    stack->top = stack->top->next;     // 2. Move top to the next node
+    free(temp);                        // 3. Free memory of the removed node
+} 
 
 void peek(Stack* stack) {
     printf("Attempting to peek at the stack...\n");
